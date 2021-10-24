@@ -4,6 +4,11 @@ $(document).ready(function () {
   $dailyPlanner.empty();
 
   //DATA
+  const currentDay = moment().format("MMMM Do YYYY");
+  console.log(currentDay);
+
+  var $currentDayHeader = $("#currentDay");
+  $currentDayHeader.text(currentDay);
 
   //FUNCTIONS
   /* PSUEDOCODE // 
