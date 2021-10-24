@@ -2,6 +2,8 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1;
+  padding: 50px;
+  vertical-align: middle;
 }
 
 textarea {
@@ -28,6 +30,10 @@ textarea {
 .time-block {
   text-align: center;
   border-radius: 15px;
+}
+
+#planner-section {
+  background-color: #ff8989;
 }
 
 .row {
