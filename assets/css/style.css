@@ -34,12 +34,16 @@ textarea {
 
 #planner-section {
   background-color: #ff8989;
+  padding: 50px;
 }
 
 .row {
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   height: 80px;
-  border-top: 1px solid white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid white;
+  background-color: #ffa8a8;
 }
 
 .hour {
