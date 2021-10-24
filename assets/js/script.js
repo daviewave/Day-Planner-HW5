@@ -1,14 +1,23 @@
 $(document).ready(function () {
   //DEPENDENCIES
-  var $dailyPlanner = $("#planner-section"); //target html div that will display daily planner rows and contents
+  //DATA
+  //target html div id that will display daily planner rows and contents and set to empty
+  var $dailyPlanner = $("#planner-section");
   $dailyPlanner.empty();
 
-  //DATA
+  //use moment.js to get the current day
   const currentDay = moment().format("MMMM Do YYYY");
-  console.log(currentDay);
 
+  //target html p id that will display todays current date to the header and use variable holding date found with moment.js
   var $currentDayHeader = $("#currentDay");
   $currentDayHeader.text(currentDay);
+
+  //variable that stores the current hour (in 12 hour time format)
+  var currentHour = moment().format("h");
+  console.log(currentHour);
+
+  //if the user saves a task, will need an array to store it
+  var savedTasks = [];
 
   //FUNCTIONS
   /* PSUEDOCODE // 
