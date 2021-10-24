@@ -27,6 +27,17 @@ $(document).ready(function () {
     1.C. add a save input button in each row 
 */
 
+  //since planner will only contain work-day hours, need 9 rows (9-5)
+  for (var hourOnPlanner = 9; hourOnPlanner < 18; hourOnPlanner++) {
+    //1.A. add a time for each row
+    var $rowContainer = $("<div>");
+    $rowContainer.addClass("row");
+    console.log(hourOnPlanner);
+
+    //will be the last step to add the row and all its new contents to the daily planner
+    $dailyPlanner.append($rowContainer);
+  }
+
   /* 2. Determinw what hour of the day it currently is 
     2.A. if the current hour isnt between 9-5 make the hour row input color normal color
     2.B. if the current hour is between 9-5 make that row color red
