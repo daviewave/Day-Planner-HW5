@@ -36,8 +36,28 @@ $(document).ready(function () {
     //need to start building each column component the components for each row
     //1.A. add a time for each row -- need to append
     var $timeColumn = $("<div>");
-    $timeColumn.addClass("hour");
     $timeColumn.addClass("col-md-2");
+
+    //add a <p> to add the hour of the row to the text
+    var $timeColumnText = $("<p>");
+    $timeColumnText.addClass("hour");
+
+    //determine whether the hour of the day is "am" or "pm" and adds the fixed hour for each row with the correct time
+    var dayOrNight = "";
+    if (hourOnPlanner < 12) {
+      dayOrNight = " am";
+      $timeColumnText.text(`${hourOnPlanner} ${dayOrNight}`);
+    } else {
+      dayOrNight = " pm";
+      if (hourOnPlanner === 12) {
+        $timeColumnText.text(`${hourOnPlanner} ${dayOrNight}`);
+      } else {
+        $timeColumnText.text(`${hourOnPlanner - 12} ${dayOrNight}`);
+      }
+    }
+
+    //append text to time column
+    $timeColumn.append($timeColumnText);
 
     //append timeColumn to the row
     $rowContainer.append($timeColumn);
