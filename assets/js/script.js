@@ -29,10 +29,18 @@ $(document).ready(function () {
 
   //since planner will only contain work-day hours, need 9 rows (9-5)
   for (var hourOnPlanner = 9; hourOnPlanner < 18; hourOnPlanner++) {
-    //1.A. add a time for each row
+    //1.A. add 9 rows to the planner, 1 for each day
     var $rowContainer = $("<div>");
     $rowContainer.addClass("row");
-    console.log(hourOnPlanner);
+
+    //need to start building each column component the components for each row
+    //1.A. add a time for each row -- need to append
+    var $timeColumn = $("<div>");
+    $timeColumn.addClass("hour");
+    $timeColumn.addClass("col-md-2");
+
+    //append timeColumn to the row
+    $rowContainer.append($timeColumn);
 
     //will be the last step to add the row and all its new contents to the daily planner
     $dailyPlanner.append($rowContainer);
