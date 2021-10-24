@@ -21,7 +21,7 @@ $(document).ready(function () {
 /* PSUEDOCODE // 
 // 1. Build each row of the daily planner for each hour in the work day 9-5
     1.A. add a time for each row
-    1.B. add a text-input ability in each row
+    1.B. add a text-input ability in the middle of each row where the user will be able to enter tasks for that particular hour
     1.C. add a save input button in each row 
 */ /* 2. Determinw what hour of the day it currently is 
     2.A. if the current hour isnt between 9-5 make the hour row input color normal color
@@ -50,11 +50,11 @@ function buildDailyPlanner() {
     var $timeColumn = $("<div>");
     $timeColumn.addClass("col-md-2");
 
-    //add a <p> to add the hour of the row to the text
+    //1.A. add a <p> to add the hour of the row to the text
     var $timeColumnText = $("<p>");
     $timeColumnText.addClass("hour");
 
-    //determine whether the hour of the day is "am" or "pm" and adds the fixed hour for each row with the correct time
+    //1.A. determine whether the hour of the day is "am" or "pm" and adds the fixed hour for each row with the correct time
     var dayOrNight = "";
     if (hourOnPlanner < 12) {
       dayOrNight = " am";
@@ -68,11 +68,19 @@ function buildDailyPlanner() {
       }
     }
 
-    //append text to time column
+    //1.A. append text to time column
     $timeColumn.append($timeColumnText);
 
-    //append timeColumn to the row
+    //1.A. append timeColumn to the row
     $rowContainer.append($timeColumn);
+
+    /*1.B. add a text-input ability in the middle of each row where the user will be able to enter tasks for that particular hour*/
+    var $taskInputColumn = $("<input>");
+    $taskInputColumn.addClass("textarea");
+    $taskInputColumn.addClass("col-md-9");
+
+    //1.B. will need to append the input area to row
+    $rowContainer.append($taskInputColumn);
 
     //will be the last step to add the row and all its new contents to the daily planner
     $dailyPlanner.append($rowContainer);

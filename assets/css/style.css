@@ -6,9 +6,10 @@ body {
   vertical-align: middle;
 }
 
-textarea {
+.textarea {
   background: transparent;
-  border: none;
+  border: 1px solid black;
+  padding-left: 3px;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
