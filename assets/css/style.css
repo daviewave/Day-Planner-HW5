@@ -3,7 +3,7 @@ body {
   font-size: 16px;
   line-height: 1;
   padding: 50px;
-  vertical-align: middle;
+  background-color: #455d7a;
 }
 
 .textarea {
@@ -14,14 +14,17 @@ body {
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  font-size: 12pt;
+  height: 100%;
+  width: 100%;
 }
 
 .jumbotron {
   text-align: center;
-  background-color: transparent;
-  color: black;
+  background-color: #233142;
+  color: white;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 10px solid white;
 }
 
 .description {
@@ -36,6 +39,10 @@ body {
 #planner-section {
   background-color: #ff8989;
   padding: 40px;
+  border-radius: 25px;
+  height: 100%;
+  width: 100%;
+  background-color: #233142;
 }
 
 .row {
@@ -45,17 +52,20 @@ body {
   margin-bottom: 5px;
   border: 1px solid white;
   background-color: #ffa8a8;
+  border-radius: 20px;
 }
 
 .hour {
   background-color: #ffc4c4;
-  color: #000000;
+  color: white;
   border: 1px solid black;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15px 0px 0px 15px;
+  background-color: #455d7a;
 }
 
 .past {
@@ -77,7 +87,7 @@ body {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #ffa8a8;
+  background-color: #afc5ff;
   color: white;
   font-size: 1.5em;
   width: 100%;
@@ -90,4 +100,26 @@ body {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+.col-md-1,
+.col-md-2,
+.col-md-9 {
+  padding: 0;
+}
+
+.first-color {
+  background: #233142;
+}
+
+.second-color {
+  background: #455d7a;
+}
+
+.third-color {
+  background: #f95959;
+}
+
+.fourth-color {
+  background: #e3e3e3;
 }
