@@ -111,11 +111,11 @@ function addColorToRows($row, fixedPlannerHour) {
     //grey if hour has already passed
     $row.addClass("past");
   } else if (fixedPlannerHour > currentMilitaryHour) {
-    //red if hour on planner is current hour
-    $row.addClass("present");
-  } else {
     //green if hour has is upcoming
     $row.addClass("future");
+  } else {
+    //red if hour on planner is current hour
+    $row.addClass("present");
   }
 }
 
