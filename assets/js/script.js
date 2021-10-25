@@ -9,22 +9,6 @@ const currentDay = moment().format("MMMM Do YYYY");
 var currentHour = moment().format("h");
 var currentMilitaryHour = moment().format("H");
 
-// console.log(currentHour);
-//if the user saves a task, will need an array to store it
-var savedTasks = [];
-var tasksInLocalStorage = JSON.parse(
-  localStorage.getItem("tasksInLocalStorage")
-);
-//image that is displayed in right column that allows the user the ability to save input
-// const saveImg = "./assets/images/save-solid.svg";
-
-//function called when page loads
-$(document).ready(function () {
-  setTodaysDate();
-  clearPlanner();
-  buildDailyPlanner();
-});
-
 //FUNCTIONS
 /* PSUEDOCODE // 
 // 1. Build each row of the daily planner for each hour in the work day 9-5
@@ -36,15 +20,6 @@ $(document).ready(function () {
     2.B. if the current hour is between 9-5 make that row color red
     2.C. make all hours after current hour red
     */
-
-//Helper functions
-function setTodaysDate() {
-  $currentDayHeader.text(currentDay);
-}
-
-function clearPlanner() {
-  $dailyPlanner.empty();
-}
 
 function buildDailyPlanner() {
   //since planner will only contain work-day hours, need 9 rows (9-5)
@@ -63,6 +38,11 @@ function buildDailyPlanner() {
     //Last step is to add the row and all its new contents to the daily planner
     $dailyPlanner.append($rowContainer);
   }
+}
+
+//Helper functions
+function setTodaysDate() {
+  $currentDayHeader.text(currentDay);
 }
 
 function addTimeColumnToRow($row) {
@@ -105,6 +85,10 @@ function addInputAbilityColumnToRow($row) {
   $taskInputColumn.addClass("col-md-9");
   $taskInputColumn.attr("id", `getInputFromRow-${rowIndex}`);
 
+  $taskInputColumn.val(savedTasks[rowIndex]);
+  console.log($taskInputColumn.val(savedTasks[rowIndex - 9]));
+  console.log($taskInputColumn.attr("id"));
+
   //1.B. will need to append the input area to row
   $row.append($taskInputColumn);
 }
@@ -122,26 +106,51 @@ function addSaveButtonToRow($row) {
 }
 
 function addColorToRows($row, fixedPlannerHour) {
+  //set colors of each row based on current hour of the day
   if (fixedPlannerHour < currentMilitaryHour) {
+    //grey if hour has already passed
     $row.addClass("past");
   } else if (fixedPlannerHour > currentMilitaryHour) {
+    //red if hour on planner is current hour
     $row.addClass("present");
   } else {
+    //green if hour has is upcoming
     $row.addClass("future");
   }
 }
 
+function checkSavedTasks() {
+  //check if there are plans in local storage already, if not create the array that will hold them
+  var tasksInLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+  console.log(tasksInLocalStorage);
+
+  if (tasksInLocalStorage !== null) {
+    savedTasks = tasksInLocalStorage;
+  } else {
+    savedTasks = new Array(9);
+    savedTasks[3] = "Lunch";
+  }
+}
+
 //User Interactions
+//function called when page loads
+$(document).ready(function () {
+  checkSavedTasks();
+  setTodaysDate();
+  buildDailyPlanner();
+});
+
 //when user clicks save need to handle in a function
 $(document).on("click", "button", function (event) {
   event.preventDefault();
-  var buttonIndex = $(this).attr("buttonNumber");
-  console.log(buttonIndex);
-  var rowOfInput = "#getInputFromRow-" + buttonIndex;
+  var $buttonIndex = $(this).attr("buttonNumber");
+  console.log($buttonIndex);
+  var rowOfInput = "#getInputFromRow-" + $buttonIndex;
   console.log(rowOfInput);
   var $plannerTask = $(rowOfInput).val();
   console.log($plannerTask);
 
-  savedTasks[buttonIndex] = $plannerTask;
+  savedTasks[$buttonIndex - 9] = $plannerTask;
   console.log(savedTasks);
+  localStorage.setItem("tasks", JSON.stringify(savedTasks));
 });
