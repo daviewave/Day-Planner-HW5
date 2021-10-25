@@ -9,6 +9,8 @@ const currentDay = moment().format("MMMM Do YYYY");
 var currentHour = moment().format("h");
 //if the user saves a task, will need an array to store it
 var savedTasks = [];
+//image that is displayed in right column that allows the user the ability to save input
+// const saveImg = "./assets/images/save-solid.svg";
 
 //function called when page loads
 $(document).ready(function () {
@@ -81,6 +83,14 @@ function buildDailyPlanner() {
 
     //1.B. will need to append the input area to row
     $rowContainer.append($taskInputColumn);
+
+    /*1.C. add a save input button to the right of the text input area within each row -- button click will need to handle storing input to local storage */
+    var $saveInputColumn = $("<div>");
+    $saveInputColumn.addClass("far fa-save saveBtn");
+    $saveInputColumn.addClass("col-md-1");
+
+    //1.C. will need to append the input area to row
+    $rowContainer.append($saveInputColumn);
 
     //will be the last step to add the row and all its new contents to the daily planner
     $dailyPlanner.append($rowContainer);
