@@ -7,6 +7,9 @@ var $currentDayHeader = $("#currentDay");
 //use moment.js to get the current day and hour
 const currentDay = moment().format("MMMM Do YYYY");
 var currentHour = moment().format("h");
+var currentMilitaryHour = moment().format("H");
+
+console.log(currentHour);
 //if the user saves a task, will need an array to store it
 var savedTasks = [];
 //image that is displayed in right column that allows the user the ability to save input
@@ -25,7 +28,7 @@ $(document).ready(function () {
     1.A. add a time for each row
     1.B. add a text-input ability in the middle of each row where the user will be able to enter tasks for that particular hour
     1.C. add a save input button in each row 
-*/ /* 2. Determinw what hour of the day it currently is 
+*/ /* 2. Determinw what hour of the day it currently 
     2.A. if the current hour isnt between 9-5 make the hour row input color normal color
     2.B. if the current hour is between 9-5 make that row color red
     2.C. make all hours after current hour red
@@ -47,52 +50,74 @@ function buildDailyPlanner() {
     var $rowContainer = $("<div>");
     $rowContainer.addClass("row");
 
-    //need to start building each column component the components for each row
-    //1.A. add a time for each row -- need to append
-    var $timeColumn = $("<div>");
-    $timeColumn.addClass("col-md-2");
+    //calls helper functions to add each portion of the daily planner rows and determines the color based on the time of day
+    addTimeColumnToRow($rowContainer, hourOnPlanner);
+    addInputAbilityColumnToRow($rowContainer);
+    addSaveButtonToRow($rowContainer);
+    addColorToRows($rowContainer, hourOnPlanner);
 
-    //1.A. add a <p> to add the hour of the row to the text
-    var $timeColumnText = $("<p>");
-    $timeColumnText.addClass("hour");
-
-    //1.A. determine whether the hour of the day is "am" or "pm" and adds the fixed hour for each row with the correct time
-    var dayOrNight = "";
-    if (hourOnPlanner < 12) {
-      dayOrNight = " am";
-      $timeColumnText.text(`${hourOnPlanner} ${dayOrNight}`);
-    } else {
-      dayOrNight = " pm";
-      if (hourOnPlanner === 12) {
-        $timeColumnText.text(`${hourOnPlanner} ${dayOrNight}`);
-      } else {
-        $timeColumnText.text(`${hourOnPlanner - 12} ${dayOrNight}`);
-      }
-    }
-
-    //1.A. append text to time column
-    $timeColumn.append($timeColumnText);
-
-    //1.A. append timeColumn to the row
-    $rowContainer.append($timeColumn);
-
-    /*1.B. add a text-input ability in the middle of each row where the user will be able to enter tasks for that particular hour*/
-    var $taskInputColumn = $("<input>");
-    $taskInputColumn.addClass("textarea");
-    $taskInputColumn.addClass("col-md-9");
-
-    //1.B. will need to append the input area to row
-    $rowContainer.append($taskInputColumn);
-
-    /*1.C. add a save input button to the right of the text input area within each row -- button click will need to handle storing input to local storage */
-    var $saveInputColumn = $("<div>");
-    $saveInputColumn.addClass("far fa-save saveBtn");
-    $saveInputColumn.addClass("col-md-1");
-
-    //1.C. will need to append the input area to row
-    $rowContainer.append($saveInputColumn);
-
-    //will be the last step to add the row and all its new contents to the daily planner
+    //Last step is to add the row and all its new contents to the daily planner
     $dailyPlanner.append($rowContainer);
+  }
+}
+
+function addTimeColumnToRow($row, fixedPlannerHour) {
+  //need to start building each column component the components for each row
+  //1.A. add a time for each row -- need to append
+  var $timeColumn = $("<div>");
+  $timeColumn.addClass("col-md-2");
+
+  //1.A. add a <p> to add the hour of the row to the text
+  var $timeColumnText = $("<p>");
+  $timeColumnText.addClass("hour");
+
+  //1.A. determine whether the hour of the day is "am" or "pm" and adds the fixed hour for each row with the correct time
+  var dayOrNight = "";
+  if (fixedPlannerHour < 12) {
+    dayOrNight = " am";
+    $timeColumnText.text(`${fixedPlannerHour} ${dayOrNight}`);
+  } else {
+    dayOrNight = " pm";
+    if (fixedPlannerHour === 12) {
+      $timeColumnText.text(`${fixedPlannerHour} ${dayOrNight}`);
+    } else {
+      $timeColumnText.text(`${fixedPlannerHour - 12} ${dayOrNight}`);
+    }
+  }
+
+  //1.A. append text to time column
+  $timeColumn.append($timeColumnText);
+
+  //1.A. append timeColumn to the row
+  $row.append($timeColumn);
+}
+
+function addInputAbilityColumnToRow($row) {
+  /*1.B. add a text-input ability in the middle of each row where the user will be able to enter tasks for that particular hour*/
+  var $taskInputColumn = $("<input>");
+  $taskInputColumn.addClass("textarea");
+  $taskInputColumn.addClass("col-md-9");
+
+  //1.B. will need to append the input area to row
+  $row.append($taskInputColumn);
+}
+
+function addSaveButtonToRow($row) {
+  /*1.C. add a save input button to the right of the text input area within each row -- button click will need to handle storing input to local storage */
+  var $saveInputColumn = $("<div>");
+  $saveInputColumn.addClass("far fa-save saveBtn");
+  $saveInputColumn.addClass("col-md-1");
+
+  //1.C. will need to append the input area to row
+  $row.append($saveInputColumn);
+}
+
+function addColorToRows($row, fixedPlannerHour) {
+  if (fixedPlannerHour < currentMilitaryHour) {
+    $row.addClass("past");
+  } else if (fixedPlannerHour > currentMilitaryHour) {
+    $row.addClass("present");
+  } else {
+    $row.addClass("future");
   }
 }
